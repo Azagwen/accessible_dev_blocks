@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "adb",
+  "version": "${version}",
+  "accessWidener" : "adb.accesswidener",
+  "name": "Accessible Dev Blocks",
+  "description": "A mod that tries to make it a bit less of a pain to use Minecraft's vanilla developer features.",
+  "authors": [
+    "Azagwen"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/modid/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.azagwen.accessible_dev_blocks.ADBMain"
+    ],
+    "client": [
+      "net.azagwen.accessible_dev_blocks.ADBClient"
+    ]
+  },
+  "mixins": [
+    "adb.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.10.8",
+    "fabric": "*",
+    "minecraft": "~1.16.2"
+  },
+  "suggests": {
+    "flamingo": "*"
+  }
+}

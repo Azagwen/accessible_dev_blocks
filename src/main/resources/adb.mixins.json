@@ -1,0 +1,18 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "net.azagwen.accessible_dev_blocks.mixin",
+    "compatibilityLevel": "JAVA_8",
+    "mixins": [
+        "ClientWorldMixin",
+        "ParticleManagerMixin",
+        "StructureBlockBlockEntityRendererMixin",
+        "StructureVoidBlockMixin"
+    ],
+    "client": [
+        "KeyboardMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+  }
+}
