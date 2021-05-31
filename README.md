@@ -1,8 +1,8 @@
-# Fabric Example Mod
+# Accessible Developer Blocks
 
 ## Setup
 
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
+You can download this mod's source and set it up in your own environment,for setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
 
 ## License
 
