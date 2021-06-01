@@ -1,5 +1,7 @@
 package net.azagwen.accessible_dev_blocks;
 
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -49,5 +51,6 @@ public class ADBMain implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Accessible Developer blocks initialised !");
+		AutoConfig.register(ADBConfig.class, JanksonConfigSerializer::new);
 	}
 }

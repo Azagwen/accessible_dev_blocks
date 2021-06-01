@@ -42,7 +42,7 @@ public class ClientWorldMixin {
         }
 
         BlockPos.Mutable mutable = new BlockPos.Mutable();
-        boolean isStructureVoidVisible = StructureVoidToggleVisible.VISIBILITY.equals(StructureVoidToggleVisible.STRUCTURE_VOID_VISIBILITY.VISIBLE);
+        boolean isStructureVoidVisible = StructureVoidToggleVisible.VISIBILITY.equals(StructureVoidToggleVisible.STRUCTURE_VOID_VISIBILITY.VISIBLE_PARTICLES);
 
         for(int j = 0; j < 667; ++j) {
             this.randomBlockDisplayTick(xCenter, yCenter, zCenter, 16, (isHoldingStructureVoid && isStructureVoidVisible), mutable);

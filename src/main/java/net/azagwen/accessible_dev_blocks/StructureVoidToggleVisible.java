@@ -12,12 +12,13 @@ import static net.azagwen.accessible_dev_blocks.ADBClient.structureVoidCycleKey;
 
 public class StructureVoidToggleVisible {
     public static VoxelShape voxelShape = VoxelShapes.empty();
-    public static BlockRenderType renderType = BlockRenderType.INVISIBLE;
+    public static BlockRenderType renderType = BlockRenderType.INVISIBLE; // Unused
 
     public enum STRUCTURE_VOID_VISIBILITY
     {
         INVISIBLE,
-        VISIBLE;
+        VISIBLE_PARTICLES,
+        VISIBLE_BOX_DRAW;
 
         public STRUCTURE_VOID_VISIBILITY next()
         {
@@ -41,15 +42,17 @@ public class StructureVoidToggleVisible {
             VISIBILITY = VISIBILITY.next();
 
             switch (VISIBILITY) {
-                case VISIBLE:
+                case VISIBLE_PARTICLES:
                     voxelShape = VoxelShapes.fullCube();
-                    renderType = BlockRenderType.MODEL;
-                    MinecraftClient.getInstance().player.sendMessage(new LiteralText("Structure Void is now §aVisible."), true);
+                    MinecraftClient.getInstance().player.sendMessage(new LiteralText("Structure Void Visibility set to §aVisible - Particles."), true);
+                    break;
+                case VISIBLE_BOX_DRAW:
+                    voxelShape = VoxelShapes.fullCube();
+                    MinecraftClient.getInstance().player.sendMessage(new LiteralText("Structure Void Visibility set to §aVisible - Box Draw."), true);
                     break;
                 case INVISIBLE:
                     voxelShape = VoxelShapes.empty();
-                    renderType = BlockRenderType.INVISIBLE;
-                    MinecraftClient.getInstance().player.sendMessage(new LiteralText("Structure Void is now §cHidden."), true);
+                    MinecraftClient.getInstance().player.sendMessage(new LiteralText("Structure Void Visibility set to §cHidden."), true);
                     break;
                 default:
                     break;

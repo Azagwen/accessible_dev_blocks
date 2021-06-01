@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "atbyw:block/structure_void"
+      "model": "adb:block/structure_void"
     }
   }
 }
