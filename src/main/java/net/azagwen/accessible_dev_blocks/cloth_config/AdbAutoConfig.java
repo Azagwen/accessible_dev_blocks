@@ -39,19 +39,26 @@ public class AdbAutoConfig implements ConfigData {
     public StructureVoidRenderMode struct_void_render_mode = StructureVoidRenderMode.PARTICLE;
 
     @BoundedDiscrete(min = 8, max = 128)
-    public int struct_void_box_render_diameter = 16;
+    public int struct_void_render_diameter = 16;
 
     @CollapsibleObject(startExpanded = true)
-    public StructVoidBoxColor struct_void_box_color = new StructVoidBoxColor();
+    public StructVoidBoxOptions struct_void_box_options = new StructVoidBoxOptions();
+
+    public static class StructVoidBoxOptions {
+        public boolean fade_borders = true;
+
+        @CollapsibleObject(startExpanded = true)
+        public StructVoidBoxColor struct_void_box_color = new StructVoidBoxColor();
+    }
 
     public static class StructVoidBoxColor {
         @BoundedDiscrete(min = 0, max = 255)
-        public int struct_void_box_color_red = 64;
+        public int color_red = 64;
 
         @BoundedDiscrete(min = 0, max = 255)
-        public int struct_void_box_color_green = 255;
+        public int color_green = 255;
 
         @BoundedDiscrete(min = 0, max = 255)
-        public int struct_void_box_color_blue = 230;
+        public int color_blue = 230;
     }
 }

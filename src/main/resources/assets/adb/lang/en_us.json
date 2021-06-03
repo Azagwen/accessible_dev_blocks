@@ -5,9 +5,11 @@
     "key.adb.structure_void.toggle": "Toggle Structure void visibility",
     "text.autoconfig.adb.title": "Accessible Developer Blocks",
     "text.autoconfig.adb.option.struct_void_render_mode": "Structure Void Render Mode",
-    "text.autoconfig.adb.option.struct_void_box_render_diameter": "Structure Void Box Outline Render Diameter",
-    "text.autoconfig.adb.option.struct_void_box_color": "Structure Void Box Outline color",
-    "text.autoconfig.adb.option.struct_void_box_color.struct_void_box_color_red": "§cRed",
-    "text.autoconfig.adb.option.struct_void_box_color.struct_void_box_color_green": "§aGreen",
-    "text.autoconfig.adb.option.struct_void_box_color.struct_void_box_color_blue": "§9Blue"
+    "text.autoconfig.adb.option.struct_void_render_diameter": "Structure Void Render Diameter",
+    "text.autoconfig.adb.option.struct_void_box_options": "Structure Void Box Outline Options",
+    "text.autoconfig.adb.option.struct_void_box_options.fade_borders": "Fade Borders ?",
+    "text.autoconfig.adb.option.struct_void_box_options.struct_void_box_color": "Structure Void Box Outline color",
+    "text.autoconfig.adb.option.struct_void_box_options.struct_void_box_color.color_red": "§cRed",
+    "text.autoconfig.adb.option.struct_void_box_options.struct_void_box_color.color_green": "§aGreen",
+    "text.autoconfig.adb.option.struct_void_box_options.struct_void_box_color.color_blue": "§9Blue"
 }

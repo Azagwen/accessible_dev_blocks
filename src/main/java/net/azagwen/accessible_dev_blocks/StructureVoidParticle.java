@@ -18,7 +18,7 @@ public class StructureVoidParticle extends SpriteBillboardParticle {
         super(world, x, y, z);
         this.setSprite(MinecraftClient.getInstance().getItemRenderer().getModels().getSprite(itemConvertible));
         this.gravityStrength = 0.0F;
-        this.maxAge = 80;
+        this.maxAge = 1;
         this.collidesWithWorld = false;
     }
 

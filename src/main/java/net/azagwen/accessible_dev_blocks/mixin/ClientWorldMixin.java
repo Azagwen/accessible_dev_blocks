@@ -22,41 +22,56 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
 @Mixin(ClientWorld.class)
 public class ClientWorldMixin {
-    private final ClientWorld self = (ClientWorld) (Object) this;
     @Final @Shadow private final MinecraftClient client = MinecraftClient.getInstance();
+    private final ClientWorld self = (ClientWorld) (Object) this;
+    private AdbAutoConfig config = AutoConfig.getConfigHolder(AdbAutoConfig.class).getConfig();
 
     @Inject(method = "doRandomBlockDisplayTicks(III)V",
             at = @At(value = "HEAD"))
     public void doRandomBlockDisplayTicks(int xCenter, int yCenter, int zCenter, CallbackInfo cbi) {
+        boolean isStructureVoidVisible = config.struct_void_visibility.equals(AdbAutoConfig.StructureVoidVisibility.VISIBLE);
+        boolean isStructureVoidParticle = config.struct_void_render_mode.equals(AdbAutoConfig.StructureVoidRenderMode.PARTICLE);
+        boolean isPlayerCreative = this.client.interactionManager.getCurrentGameMode() == GameMode.CREATIVE;
         boolean isHoldingStructureVoid = false;
 
-        if (this.client.interactionManager.getCurrentGameMode() == GameMode.CREATIVE) {
-            for (ItemStack itemStack : this.client.player.getItemsHand()) {
-                if (itemStack.getItem() == Blocks.STRUCTURE_VOID.asItem()) {
-                    isHoldingStructureVoid = true;
-                    break;
-                }
+        for (ItemStack itemStack : this.client.player.getItemsHand()) {
+            if (itemStack.getItem() == Blocks.STRUCTURE_VOID.asItem()) {
+                isHoldingStructureVoid = true;
+                break;
             }
         }
 
-        BlockPos.Mutable mutable = new BlockPos.Mutable();
-        boolean isStructureVoidVisible = AutoConfig.getConfigHolder(AdbAutoConfig.class).getConfig().struct_void_visibility.equals(AdbAutoConfig.StructureVoidVisibility.VISIBLE);
-        boolean isStructureVoidParticle = AutoConfig.getConfigHolder(AdbAutoConfig.class).getConfig().struct_void_render_mode.equals(AdbAutoConfig.StructureVoidRenderMode.PARTICLE);
+        int diameter = config.struct_void_render_diameter;
+        BlockPos playerBlockPos = this.client.player.getBlockPos();
+        Iterable<BlockPos> blockPosIterable = BlockPos.iterateOutwards(playerBlockPos, (diameter / 2), (diameter / 2), (diameter / 2));
 
-        for(int j = 0; j < 667; ++j) {
-            this.randomBlockDisplayTick(xCenter, yCenter, zCenter, 16, (isHoldingStructureVoid && isStructureVoidVisible && isStructureVoidParticle), mutable);
-            this.randomBlockDisplayTick(xCenter, yCenter, zCenter, 32, (isHoldingStructureVoid && isStructureVoidVisible && isStructureVoidParticle), mutable);
+        if (isStructureVoidVisible && isStructureVoidParticle && isHoldingStructureVoid && isPlayerCreative) {
+            blockPosIterable.forEach(currentPos -> {
+                BlockState blockState = self.getBlockState(currentPos);
+                if (blockState.isOf(Blocks.STRUCTURE_VOID)) {
+                    int offsetX = playerBlockPos.getX() - currentPos.getX();
+                    int offsetY = playerBlockPos.getY() - currentPos.getY();
+                    int offsetZ = playerBlockPos.getZ() - currentPos.getZ();
+
+                    double sphere = Math.sqrt(Math.pow(Math.sqrt(Math.pow(offsetX, 2) + Math.pow(offsetY, 2)), 2) + Math.pow(offsetZ, 2));
+                    float newSphere = -(((float) sphere) - ((float) diameter / 2));
+                    float adjustedSphere = (newSphere / ((float) diameter / 2));
+
+                    if (adjustedSphere > 0) {
+                        this.spawParticles(currentPos);
+                    }
+                }
+            });
         }
     }
 
-    public void randomBlockDisplayTick(int xCenter, int yCenter, int zCenter, int radius, boolean spawnStructureVoidParticles, BlockPos.Mutable pos) {
-        int x = xCenter + self.random.nextInt(radius) - self.random.nextInt(radius);
-        int y = yCenter + self.random.nextInt(radius) - self.random.nextInt(radius);
-        int z = zCenter + self.random.nextInt(radius) - self.random.nextInt(radius);
-        pos.set(x, y, z);
+    public void spawParticles(BlockPos pos) {
+        int x = pos.getX();
+        int y = pos.getY();
+        int z = pos.getZ();
         BlockState blockState = self.getBlockState(pos);
 
-        if (spawnStructureVoidParticles && blockState.isOf(Blocks.STRUCTURE_VOID)) {
+        if (blockState.isOf(Blocks.STRUCTURE_VOID)) {
             self.addParticle(AdbParticleTypes.STRUCTURE_VOID, (double)x + 0.5D, (double)y + 0.5D, (double)z + 0.5D, 0.0D, 0.0D, 0.0D);
         }
     }
