@@ -1,7 +1,7 @@
 package net.azagwen.accessible_dev_blocks.mixin;
 
-import net.azagwen.accessible_dev_blocks.ADBUtils;
-import net.azagwen.accessible_dev_blocks.ColorRGB;
+import net.azagwen.accessible_dev_blocks.utils.AdbUtils;
+import net.azagwen.accessible_dev_blocks.utils.ColorRGB;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -47,11 +47,11 @@ public class StructureBlockBlockEntityRendererMixin {
                 isBlockVoid = blockState.isOf(Blocks.STRUCTURE_VOID);
             } while(!isBlockAir && !isBlockVoid);
 
-            BlockPos subPos = ADBUtils.createSubstractionBlockPos(currentPos, structureBlockEntityPos);
-            Box voidBox = ADBUtils.makeCenteredInflatableBox(subPos, 15, 0);
+            BlockPos subPos = AdbUtils.createSubstractionBlockPos(currentPos, structureBlockEntityPos);
+            Box voidBox = AdbUtils.makeCenteredInflatableBox(subPos, 15, 0);
             ColorRGB voidColor = new ColorRGB(64, 255, 223);
             if (isBlockVoid) {
-                ADBUtils.drawBox(matrixStack, vertexConsumer, voidBox, voidColor, 0.25F);
+                AdbUtils.drawBox(matrixStack, vertexConsumer, voidBox, voidColor, 0.25F);
             }
         }
     }

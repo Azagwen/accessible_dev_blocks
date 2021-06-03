@@ -1,30 +1,21 @@
 package net.azagwen.accessible_dev_blocks;
 
 import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
+import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
+import me.shedaniel.autoconfig.serializer.YamlConfigSerializer;
+import net.azagwen.accessible_dev_blocks.cloth_config.AdbAutoConfig;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.options.KeyBinding;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_G;
-
-public class ADBMain implements ModInitializer {
+public class AdbMain implements ModInitializer {
 	public static final Logger LOGGER  = LogManager.getLogger();
 	public static final String ADB_NAMESPACE = "adb";
 
@@ -51,6 +42,7 @@ public class ADBMain implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Accessible Developer blocks initialised !");
-		AutoConfig.register(ADBConfig.class, JanksonConfigSerializer::new);
+		AutoConfig.register(AdbAutoConfig.class, GsonConfigSerializer::new);
+		AutoConfig.getConfigHolder(AdbAutoConfig.class).save();
 	}
 }

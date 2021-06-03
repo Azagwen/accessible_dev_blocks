@@ -1,15 +1,13 @@
 package net.azagwen.accessible_dev_blocks.mixin;
 
-import net.azagwen.accessible_dev_blocks.ADBParticleTypes;
-import net.azagwen.accessible_dev_blocks.ADBUtils;
-import net.azagwen.accessible_dev_blocks.StructureVoidToggleVisible;
+import me.shedaniel.autoconfig.AutoConfig;
+import net.azagwen.accessible_dev_blocks.cloth_config.AdbAutoConfig;
+import net.azagwen.accessible_dev_blocks.AdbParticleTypes;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.WorldRenderer;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -42,11 +40,12 @@ public class ClientWorldMixin {
         }
 
         BlockPos.Mutable mutable = new BlockPos.Mutable();
-        boolean isStructureVoidVisible = StructureVoidToggleVisible.VISIBILITY.equals(StructureVoidToggleVisible.STRUCTURE_VOID_VISIBILITY.VISIBLE_PARTICLES);
+        boolean isStructureVoidVisible = AutoConfig.getConfigHolder(AdbAutoConfig.class).getConfig().struct_void_visibility.equals(AdbAutoConfig.StructureVoidVisibility.VISIBLE);
+        boolean isStructureVoidParticle = AutoConfig.getConfigHolder(AdbAutoConfig.class).getConfig().struct_void_render_mode.equals(AdbAutoConfig.StructureVoidRenderMode.PARTICLE);
 
         for(int j = 0; j < 667; ++j) {
-            this.randomBlockDisplayTick(xCenter, yCenter, zCenter, 16, (isHoldingStructureVoid && isStructureVoidVisible), mutable);
-            this.randomBlockDisplayTick(xCenter, yCenter, zCenter, 32, (isHoldingStructureVoid && isStructureVoidVisible), mutable);
+            this.randomBlockDisplayTick(xCenter, yCenter, zCenter, 16, (isHoldingStructureVoid && isStructureVoidVisible && isStructureVoidParticle), mutable);
+            this.randomBlockDisplayTick(xCenter, yCenter, zCenter, 32, (isHoldingStructureVoid && isStructureVoidVisible && isStructureVoidParticle), mutable);
         }
     }
 
@@ -58,7 +57,7 @@ public class ClientWorldMixin {
         BlockState blockState = self.getBlockState(pos);
 
         if (spawnStructureVoidParticles && blockState.isOf(Blocks.STRUCTURE_VOID)) {
-            self.addParticle(ADBParticleTypes.STRUCTURE_VOID, (double)x + 0.5D, (double)y + 0.5D, (double)z + 0.5D, 0.0D, 0.0D, 0.0D);
+            self.addParticle(AdbParticleTypes.STRUCTURE_VOID, (double)x + 0.5D, (double)y + 0.5D, (double)z + 0.5D, 0.0D, 0.0D, 0.0D);
         }
     }
 }

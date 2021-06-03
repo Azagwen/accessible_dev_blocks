@@ -1,4 +1,4 @@
-package net.azagwen.accessible_dev_blocks;
+package net.azagwen.accessible_dev_blocks.utils;
 
 public class ColorRGB {
     public final float red;

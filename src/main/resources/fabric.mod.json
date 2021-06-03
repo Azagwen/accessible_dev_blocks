@@ -4,25 +4,29 @@
   "version": "${version}",
   "accessWidener" : "adb.accesswidener",
   "name": "Accessible Dev Blocks",
-  "description": "A mod that tries to make it a bit less of a pain to use Minecraft's vanilla developer features.",
+  "description": "A mod that tries to make it a bit less of a pain to use Minecraft's vanilla developer features. (Thanks to Someone_in_particular for helping me with Trigonometry stuff)",
   "authors": [
     "Azagwen"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://github.com/Azagwen/accessible_dev_blocks",
+    "sources": "https://github.com/Azagwen/accessible_dev_blocks",
+    "issues": "https://github.com/Azagwen/accessible_dev_blocks/issues"
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/adb/icon.png",
 
-  "environment": "*",
+  "environment": "client",
   "entrypoints": {
     "main": [
-      "net.azagwen.accessible_dev_blocks.ADBMain"
+      "net.azagwen.accessible_dev_blocks.AdbMain"
     ],
     "client": [
-      "net.azagwen.accessible_dev_blocks.ADBClient"
+      "net.azagwen.accessible_dev_blocks.AdbClient"
+    ],
+    "modmenu": [
+      "net.azagwen.accessible_dev_blocks.ModMenuIntegration"
     ]
   },
   "mixins": [

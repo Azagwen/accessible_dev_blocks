@@ -1,62 +1,46 @@
 package net.azagwen.accessible_dev_blocks;
 
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.ConfigHolder;
+import net.azagwen.accessible_dev_blocks.cloth_config.AdbAutoConfig;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockRenderType;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 
-import static net.azagwen.accessible_dev_blocks.ADBClient.structureVoidCycleKey;
+import static net.azagwen.accessible_dev_blocks.AdbClient.structureVoidCycleKey;
 
 public class StructureVoidToggleVisible {
-    public static VoxelShape voxelShape = VoxelShapes.empty();
-    public static BlockRenderType renderType = BlockRenderType.INVISIBLE; // Unused
-
-    public enum STRUCTURE_VOID_VISIBILITY
-    {
-        INVISIBLE,
-        VISIBLE_PARTICLES,
-        VISIBLE_BOX_DRAW;
-
-        public STRUCTURE_VOID_VISIBILITY next()
-        {
-            //loop back to start if on last enum
-            if(ordinal() + 1 == values().length)
-            {
-                return values()[0];
-            }
-
-            return values()[ordinal() + 1];
-        }
-    }
-
-    //the current mode for the structure void block for the current client
-    public static STRUCTURE_VOID_VISIBILITY VISIBILITY = STRUCTURE_VOID_VISIBILITY.INVISIBLE;
+    private static ConfigHolder<AdbAutoConfig> config = AutoConfig.getConfigHolder(AdbAutoConfig.class);
 
     @Environment(EnvType.CLIENT)
     public static void toggle() {
-        //Changes the structure void visibility
         if (structureVoidCycleKey.isPressed()) {
-            VISIBILITY = VISIBILITY.next();
+            config.getConfig().struct_void_visibility = config.getConfig().struct_void_visibility.next();
+            config.save();
 
-            switch (VISIBILITY) {
-                case VISIBLE_PARTICLES:
-                    voxelShape = VoxelShapes.fullCube();
-                    MinecraftClient.getInstance().player.sendMessage(new LiteralText("Structure Void Visibility set to §aVisible - Particles."), true);
-                    break;
-                case VISIBLE_BOX_DRAW:
-                    voxelShape = VoxelShapes.fullCube();
-                    MinecraftClient.getInstance().player.sendMessage(new LiteralText("Structure Void Visibility set to §aVisible - Box Draw."), true);
+            switch (config.getConfig().struct_void_visibility) {
+                case VISIBLE:
+                    MinecraftClient.getInstance().player.sendMessage(new LiteralText("Structure Void is now §aVisible."), true);
                     break;
                 case INVISIBLE:
-                    voxelShape = VoxelShapes.empty();
-                    MinecraftClient.getInstance().player.sendMessage(new LiteralText("Structure Void Visibility set to §cHidden."), true);
+                    MinecraftClient.getInstance().player.sendMessage(new LiteralText("Structure Void is now §cHidden."), true);
                     break;
                 default:
                     break;
             }
+        }
+    }
+
+    public static VoxelShape shape() {
+        switch (config.getConfig().struct_void_visibility) {
+            case VISIBLE:
+                return VoxelShapes.fullCube();
+            case INVISIBLE:
+            default:
+                return VoxelShapes.empty();
         }
     }
 }

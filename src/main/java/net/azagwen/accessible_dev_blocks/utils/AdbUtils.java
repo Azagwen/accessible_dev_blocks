@@ -1,4 +1,4 @@
-package net.azagwen.accessible_dev_blocks;
+package net.azagwen.accessible_dev_blocks.utils;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -8,7 +8,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 
-public class ADBUtils {
+public class AdbUtils {
     public static Box makeCenteredInflatableBox(BlockPos blockPos, int boxSize, float inflateFac) {
         float newBoxSize = (float)(boxSize / 16);
         float minBoxSize = 0.5F - (newBoxSize / 2);

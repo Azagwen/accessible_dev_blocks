@@ -33,6 +33,7 @@ dependencies {
 }
 
 repositories {
+	mavenLocal()
 	maven { url "https://maven.shedaniel.me/" }
 }
 

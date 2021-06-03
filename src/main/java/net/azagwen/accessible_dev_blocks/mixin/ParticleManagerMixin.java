@@ -1,6 +1,6 @@
 package net.azagwen.accessible_dev_blocks.mixin;
 
-import net.azagwen.accessible_dev_blocks.ADBParticleTypes;
+import net.azagwen.accessible_dev_blocks.AdbParticleTypes;
 import net.azagwen.accessible_dev_blocks.StructureVoidParticle;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -18,6 +18,6 @@ public class ParticleManagerMixin {
     @Inject(method = "registerDefaultFactories()V",
             at = @At(value = "TAIL"))
     private void registerDefaultFactories(CallbackInfo cbi) {
-        self.registerFactory(ADBParticleTypes.STRUCTURE_VOID, new StructureVoidParticle.Factory());
+        self.registerFactory(AdbParticleTypes.STRUCTURE_VOID, new StructureVoidParticle.Factory());
     }
 }

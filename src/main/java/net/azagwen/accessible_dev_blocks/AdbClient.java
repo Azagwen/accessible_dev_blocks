@@ -9,11 +9,11 @@ import net.minecraft.block.Blocks;
 import net.minecraft.client.options.KeyBinding;
 import net.minecraft.client.render.RenderLayer;
 
-import static net.azagwen.accessible_dev_blocks.ADBMain.ADB_NAMESPACE;
+import static net.azagwen.accessible_dev_blocks.AdbMain.ADB_NAMESPACE;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_F4;
 
 @Environment(EnvType.CLIENT)
-public class ADBClient implements ClientModInitializer {
+public class AdbClient implements ClientModInitializer {
     public static KeyBinding structureVoidCycleKey;
     public final String keyBindingCategory ="key.categories." + ADB_NAMESPACE;
 
