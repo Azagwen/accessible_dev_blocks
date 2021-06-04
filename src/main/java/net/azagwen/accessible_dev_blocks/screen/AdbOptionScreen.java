@@ -33,7 +33,7 @@ public class AdbOptionScreen extends Screen {
         this.renderMode = this.settings.structVoidRenderMode;
 
         //Left side
-        this.structVoidRenderModeButton = this.addButton(new ButtonWidget(this.width / 2 - 205, this.getVerticalSpacing(3) - mainBlockOffsetY , 200, 20, this.getRenderModeButtonText(this.renderMode), (button) -> {
+        this.structVoidRenderModeButton = this.addButton(new ButtonWidget(this.width / 2 - 204, this.getVerticalSpacing(3) - mainBlockOffsetY , 200, 20, this.getRenderModeButtonText(this.renderMode), (button) -> {
             this.renderMode = this.renderMode.next();
             this.settings.structVoidRenderMode = this.renderMode;
             this.settings.write();
