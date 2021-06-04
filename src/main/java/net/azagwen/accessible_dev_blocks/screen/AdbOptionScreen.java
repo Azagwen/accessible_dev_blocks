@@ -1,8 +1,7 @@
 package net.azagwen.accessible_dev_blocks.screen;
 
-import javafx.scene.paint.Color;
-import net.azagwen.accessible_dev_blocks.option.AdbDefaultOptions;
 import net.azagwen.accessible_dev_blocks.option.AdbGameOptions;
+import net.azagwen.accessible_dev_blocks.option.AdbOption;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
