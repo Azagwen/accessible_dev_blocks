@@ -2,6 +2,7 @@ package net.azagwen.accessible_dev_blocks.screen;
 
 import net.azagwen.accessible_dev_blocks.option.AdbGameOptions;
 import net.azagwen.accessible_dev_blocks.option.AdbOption;
+import net.azagwen.accessible_dev_blocks.screen.widget.AdbColorDisplayWidget;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
@@ -9,13 +10,17 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 
+import java.awt.*;
+
 @Environment(EnvType.CLIENT)
 public class AdbOptionScreen extends Screen {
     private final Screen parent;
     private final AdbGameOptions settings;
     private ButtonWidget structVoidRenderModeButton;
+    private AdbColorDisplayWidget colorDisplayWidget;
     private StructureVoidRenderMode renderMode;
     private int mainBlockOffsetY = 16;
+    public Color colorDisplay = new Color(255, 255, 255);
 
     public AdbOptionScreen(Screen parent, AdbGameOptions settings) {
         super(new AdbOptionTranslatableText("title"));
@@ -25,6 +30,15 @@ public class AdbOptionScreen extends Screen {
 
     private int getVerticalSpacing(int row) {
         return this.height / 6 + (24 * row) -6;
+    }
+
+    @Override
+    public void tick() {
+        this.colorDisplayWidget.setColor(new Color(
+                (int) this.settings.structVoidBoxColorRed,
+                (int) this.settings.structVoidBoxColorGreen,
+                (int) this.settings.structVoidBoxColorBlue
+        ).hashCode());
     }
 
     protected void init() {
@@ -42,9 +56,10 @@ public class AdbOptionScreen extends Screen {
         this.addButton(AdbOption.STRUCT_VOID_FADE_BORDERS.createButton(this.settings, this.width / 2 - 204, this.getVerticalSpacing(5) - mainBlockOffsetY, 200));
 
         //Right side
-        this.addButton(AdbOption.STRUCT_VOID_BOX_COLOR_RED.createButton(this.settings, this.width / 2 + 4, this.getVerticalSpacing(3) - mainBlockOffsetY, 200));
-        this.addButton(AdbOption.STRUCT_VOID_BOX_COLOR_GREEN.createButton(this.settings, this.width / 2 + 4, this.getVerticalSpacing(4) - mainBlockOffsetY, 200));
-        this.addButton(AdbOption.STRUCT_VOID_BOX_COLOR_BLUE.createButton(this.settings, this.width / 2 + 4, this.getVerticalSpacing(5) - mainBlockOffsetY, 200));
+        this.addButton(AdbOption.STRUCT_VOID_BOX_COLOR_RED.createButton(this.settings, this.width / 2 + 4, this.getVerticalSpacing(3) - mainBlockOffsetY, 170));
+        this.addButton(AdbOption.STRUCT_VOID_BOX_COLOR_GREEN.createButton(this.settings, this.width / 2 + 4, this.getVerticalSpacing(4) - mainBlockOffsetY, 170));
+        this.addButton(AdbOption.STRUCT_VOID_BOX_COLOR_BLUE.createButton(this.settings, this.width / 2 + 4, this.getVerticalSpacing(5) - mainBlockOffsetY, 170));
+        this.colorDisplayWidget = this.addButton(new AdbColorDisplayWidget(this.width / 2 + 180, this.getVerticalSpacing(3) - mainBlockOffsetY, 20, 68, colorDisplay.hashCode()));
 
         //Bottom
         this.addButton(new ButtonWidget(this.width / 2 - 155, this.getVerticalSpacing(7), 150, 20, new AdbOptionTranslatableText("reset"), (button) -> {

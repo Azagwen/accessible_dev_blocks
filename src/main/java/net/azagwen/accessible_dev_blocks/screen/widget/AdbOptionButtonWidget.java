@@ -1,4 +1,4 @@
-package net.azagwen.accessible_dev_blocks.screen;
+package net.azagwen.accessible_dev_blocks.screen.widget;
 
 import net.azagwen.accessible_dev_blocks.option.AdbOption;
 import net.fabricmc.api.EnvType;
