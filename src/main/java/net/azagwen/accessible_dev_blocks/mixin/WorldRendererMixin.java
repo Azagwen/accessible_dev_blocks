@@ -1,7 +1,7 @@
 package net.azagwen.accessible_dev_blocks.mixin;
 
 import net.azagwen.accessible_dev_blocks.AdbClient;
-import net.azagwen.accessible_dev_blocks.screen.AdbGameOptions;
+import net.azagwen.accessible_dev_blocks.option.AdbGameOptions;
 import net.azagwen.accessible_dev_blocks.screen.StructureVoidRenderMode;
 import net.azagwen.accessible_dev_blocks.utils.ColorRGB;
 import net.fabricmc.api.EnvType;
@@ -45,10 +45,10 @@ public class WorldRendererMixin {
     @Inject(method = "render(Lnet/minecraft/client/util/math/MatrixStack;FJZLnet/minecraft/client/render/Camera;Lnet/minecraft/client/render/GameRenderer;Lnet/minecraft/client/render/LightmapTextureManager;Lnet/minecraft/util/math/Matrix4f;)V",
             at = @At(value = "HEAD", args = { "log=true" }))
     public void render(MatrixStack matrices, float tickDelta, long limitTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightmapTextureManager lightmapTextureManager, Matrix4f matrix4f, CallbackInfo cbi) {
-        boolean isStructureVoidVisible = settings.structVoidVisibility;
-        boolean isStructureVoidBoxOutline = settings.structVoidRenderMode.equals(StructureVoidRenderMode.BOX_OUTLINE);
+        boolean isStructureVoidVisible = this.settings.structVoidVisibility;
+        boolean isStructureVoidBoxOutline = this.settings.structVoidRenderMode.equals(StructureVoidRenderMode.BOX_OUTLINE);
         boolean isPlayerCreative = this.client.interactionManager.getCurrentGameMode() == GameMode.CREATIVE;
-        ColorRGB voidColor = new ColorRGB(64, 255, 230);
+        ColorRGB voidColor = new ColorRGB((int) this.settings.structVoidBoxColorRed, (int) this.settings.structVoidBoxColorGreen, (int) this.settings.structVoidBoxColorBlue);
 
         VertexConsumerProvider.Immediate immediate = this.bufferBuilders.getEntityVertexConsumers();
         VertexConsumer linesVertexConsumer = immediate.getBuffer(RenderLayer.getLines());
@@ -58,7 +58,7 @@ public class WorldRendererMixin {
         self.checkEmpty(matrices);
         profiler.swap("adb_structure_void");
 
-        int diameter = (int) settings.structVoidRenderDiameter;
+        int diameter = (int) this.settings.structVoidRenderDiameter;
         BlockPos playerBlockPos = this.client.player.getBlockPos();
         Iterable<BlockPos> blockPosIterable = BlockPos.iterateOutwards(playerBlockPos, (diameter / 2), (diameter / 2), (diameter / 2));
 
@@ -73,7 +73,7 @@ public class WorldRendererMixin {
                     double alpha = Math.sqrt(Math.pow(Math.sqrt(Math.pow(offsetX, 2) + Math.pow(offsetY, 2)), 2) + Math.pow(offsetZ, 2));
                     float newAlpha = -(((float) alpha) - ((float) diameter / 2));
                     float adjustedAlpha = (newAlpha / ((float) diameter / 2));
-                    boolean fadeBorders = settings.structVoidFadeBorders;
+                    boolean fadeBorders = this.settings.structVoidFadeBorders;
 
                     if (adjustedAlpha > 0) {
                         this.drawBlockOutline(matrices, linesVertexConsumer, this.shape, cameraVector, currentPos, voidColor, fadeBorders ? Math.max(0, adjustedAlpha) : 1.0F);

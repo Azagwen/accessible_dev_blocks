@@ -25,7 +25,7 @@ public enum StructureVoidRenderMode {
     }
 
     public Text getTranslatableName() {
-        return new AdbOptionTranslatableText("render_mode." + this.name);
+        return new AdbOptionTranslatableText("renderMode." + this.name);
     }
 
     public int getId() {

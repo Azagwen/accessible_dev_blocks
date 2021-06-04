@@ -1,5 +1,6 @@
 package net.azagwen.accessible_dev_blocks.screen;
 
+import net.azagwen.accessible_dev_blocks.option.AdbGameOptions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
@@ -43,7 +44,7 @@ public class AdbDoubleOption extends AdbOption {
 
     private double adjust(double value) {
         if (this.step > 0.0F) {
-            value = (double)(this.step * (float)Math.round(value / (double)this.step));
+            value = (this.step * (float)Math.round(value / (double)this.step));
         }
 
         return MathHelper.clamp(value, this.min, this.max);
@@ -58,7 +59,7 @@ public class AdbDoubleOption extends AdbOption {
     }
 
     public void setMax(float max) {
-        this.max = (double)max;
+        this.max = max;
     }
 
     public void set(AdbGameOptions options, double value) {
@@ -66,10 +67,10 @@ public class AdbDoubleOption extends AdbOption {
     }
 
     public double get(AdbGameOptions options) {
-        return (Double)this.getter.apply(options);
+        return this.getter.apply(options);
     }
 
     public Text getDisplayString(AdbGameOptions options) {
-        return (Text)this.displayStringGetter.apply(options, this);
+        return this.displayStringGetter.apply(options, this);
     }
 }

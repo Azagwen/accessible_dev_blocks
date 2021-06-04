@@ -1,5 +1,6 @@
 package net.azagwen.accessible_dev_blocks.screen;
 
+import net.azagwen.accessible_dev_blocks.option.AdbGameOptions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.util.OrderableTooltip;
@@ -20,6 +21,7 @@ public class AdbDoubleOptionSliderWidget extends AdbOptionSliderWidget implement
 
     protected void applyValue() {
         this.option.set(this.options, this.option.getValue(this.value));
+        this.options.write();
     }
 
     protected void updateMessage() {

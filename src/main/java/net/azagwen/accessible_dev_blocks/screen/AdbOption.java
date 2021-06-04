@@ -1,5 +1,6 @@
 package net.azagwen.accessible_dev_blocks.screen;
 
+import net.azagwen.accessible_dev_blocks.option.AdbGameOptions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
@@ -27,6 +28,35 @@ public abstract class AdbOption {
         } else {
             return option.getGenericLabel(new LiteralText("§a" + (int) currentValue));
         }
+    });
+    public static final AdbBooleanOption STRUCT_VOID_FADE_BORDERS = new AdbBooleanOption("structVoidFadeBorders", (gameOptions) -> {
+        return gameOptions.structVoidFadeBorders;
+    }, (gameOptions, fadeBorders) -> {
+        gameOptions.structVoidFadeBorders = fadeBorders;
+    });
+    public static final AdbDoubleOption STRUCT_VOID_BOX_COLOR_RED = new AdbDoubleOption("structVoidBoxColorRed", 0.0F, 255.0F, 1.0F, (adbGameOptions) ->
+    {
+        return adbGameOptions.structVoidBoxColorRed;
+    }, (adbGameOptions, value) -> adbGameOptions.structVoidBoxColorRed = value, (adbGameOptions, option) ->
+    {
+        double currentValue = option.get(adbGameOptions);
+        return option.getGenericLabel(new LiteralText("§c" + (int)currentValue));
+    });
+    public static final AdbDoubleOption STRUCT_VOID_BOX_COLOR_GREEN = new AdbDoubleOption("structVoidBoxColorGreen", 0.0F, 255.0F, 1.0F, (adbGameOptions) ->
+    {
+        return adbGameOptions.structVoidBoxColorGreen;
+    }, (adbGameOptions, value) -> adbGameOptions.structVoidBoxColorGreen = value, (adbGameOptions, option) ->
+    {
+        double currentValue = option.get(adbGameOptions);
+        return option.getGenericLabel(new LiteralText("§a" + (int)currentValue));
+    });
+    public static final AdbDoubleOption STRUCT_VOID_BOX_COLOR_BLUE = new AdbDoubleOption("structVoidBoxColorBlue", 0.0F, 255.0F, 1.0F, (adbGameOptions) ->
+    {
+        return adbGameOptions.structVoidBoxColorBlue;
+    }, (adbGameOptions, value) -> adbGameOptions.structVoidBoxColorBlue = value, (adbGameOptions, option) ->
+    {
+        double currentValue = option.get(adbGameOptions);
+        return option.getGenericLabel(new LiteralText("§9" + (int)currentValue));
     });
 
     private final Text key;

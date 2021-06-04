@@ -1,6 +1,6 @@
 package net.azagwen.accessible_dev_blocks;
 
-import net.azagwen.accessible_dev_blocks.screen.AdbGameOptions;
+import net.azagwen.accessible_dev_blocks.option.AdbGameOptions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;

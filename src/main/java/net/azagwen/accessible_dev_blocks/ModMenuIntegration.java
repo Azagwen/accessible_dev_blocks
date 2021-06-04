@@ -2,11 +2,9 @@ package net.azagwen.accessible_dev_blocks;
 
 import io.github.prospector.modmenu.api.ConfigScreenFactory;
 import io.github.prospector.modmenu.api.ModMenuApi;
-import net.azagwen.accessible_dev_blocks.screen.AdbGameOptions;
 import net.azagwen.accessible_dev_blocks.screen.AdbOptionScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
 
 @Environment(EnvType.CLIENT)
 public class ModMenuIntegration implements ModMenuApi {

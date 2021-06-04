@@ -2,7 +2,7 @@ package net.azagwen.accessible_dev_blocks.mixin;
 
 import net.azagwen.accessible_dev_blocks.AdbClient;
 import net.azagwen.accessible_dev_blocks.AdbParticleTypes;
-import net.azagwen.accessible_dev_blocks.screen.AdbGameOptions;
+import net.azagwen.accessible_dev_blocks.option.AdbGameOptions;
 import net.azagwen.accessible_dev_blocks.screen.StructureVoidRenderMode;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -30,8 +30,8 @@ public class ClientWorldMixin {
     @Inject(method = "doRandomBlockDisplayTicks(III)V",
             at = @At(value = "HEAD"))
     public void doRandomBlockDisplayTicks(int xCenter, int yCenter, int zCenter, CallbackInfo cbi) {
-        boolean isStructureVoidVisible = settings.structVoidVisibility;
-        boolean isStructureVoidParticle = settings.structVoidRenderMode.equals(StructureVoidRenderMode.PARTICLE);
+        boolean isStructureVoidVisible = this.settings.structVoidVisibility;
+        boolean isStructureVoidParticle = this.settings.structVoidRenderMode.equals(StructureVoidRenderMode.PARTICLE);
         boolean isPlayerCreative = this.client.interactionManager.getCurrentGameMode() == GameMode.CREATIVE;
         boolean isHoldingStructureVoid = false;
 
@@ -42,7 +42,7 @@ public class ClientWorldMixin {
             }
         }
 
-        int diameter = (int) settings.structVoidRenderDiameter;
+        int diameter = (int) this.settings.structVoidRenderDiameter;
         BlockPos playerBlockPos = this.client.player.getBlockPos();
         Iterable<BlockPos> blockPosIterable = BlockPos.iterateOutwards(playerBlockPos, (diameter / 2), (diameter / 2), (diameter / 2));
 
