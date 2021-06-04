@@ -20,7 +20,7 @@ public class AdbOptionScreen extends Screen {
     private AdbColorDisplayWidget colorDisplayWidget;
     private StructureVoidRenderMode renderMode;
     private int mainBlockOffsetY = 16;
-    public Color colorDisplay = new Color(255, 255, 255);
+    public Color colorDisplay = new Color(64, 255, 230);
 
     public AdbOptionScreen(Screen parent, AdbGameOptions settings) {
         super(new AdbOptionTranslatableText("title"));
