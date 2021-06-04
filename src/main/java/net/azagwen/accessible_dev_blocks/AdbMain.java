@@ -1,11 +1,5 @@
 package net.azagwen.accessible_dev_blocks;
 
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
-import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
-import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
-import me.shedaniel.autoconfig.serializer.YamlConfigSerializer;
-import net.azagwen.accessible_dev_blocks.cloth_config.AdbAutoConfig;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.item.ItemGroup;
@@ -39,10 +33,11 @@ public class AdbMain implements ModInitializer {
 			}))
 			.build();
 
+	//TODO: make my own config and GUI because everyone else's stuff is unusable
+	//TODO: EDIT to the above todo, I made it, but I'll leave this because I'm too proud :)
+
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Accessible Developer blocks initialised !");
-		AutoConfig.register(AdbAutoConfig.class, GsonConfigSerializer::new);
-		AutoConfig.getConfigHolder(AdbAutoConfig.class).save();
 	}
 }

@@ -1,7 +1,8 @@
 package net.azagwen.accessible_dev_blocks.mixin;
 
-import me.shedaniel.autoconfig.AutoConfig;
-import net.azagwen.accessible_dev_blocks.cloth_config.AdbAutoConfig;
+import net.azagwen.accessible_dev_blocks.AdbClient;
+import net.azagwen.accessible_dev_blocks.screen.AdbGameOptions;
+import net.azagwen.accessible_dev_blocks.screen.StructureVoidRenderMode;
 import net.azagwen.accessible_dev_blocks.utils.ColorRGB;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -33,7 +34,7 @@ public class WorldRendererMixin {
     @Mutable @Final @Shadow private final BufferBuilderStorage bufferBuilders;
     private final WorldRenderer self = (WorldRenderer) (Object) this;
     private static final VoxelShape shape = Block.createCuboidShape(4.0D, 4.0D, 4.0D, 12.0D, 12.0D, 12.0D);
-    private AdbAutoConfig config = AutoConfig.getConfigHolder(AdbAutoConfig.class).getConfig();
+    private AdbGameOptions settings = AdbClient.settings;
 
 
     public WorldRendererMixin(MinecraftClient client, BufferBuilderStorage bufferBuilders) {
@@ -44,14 +45,10 @@ public class WorldRendererMixin {
     @Inject(method = "render(Lnet/minecraft/client/util/math/MatrixStack;FJZLnet/minecraft/client/render/Camera;Lnet/minecraft/client/render/GameRenderer;Lnet/minecraft/client/render/LightmapTextureManager;Lnet/minecraft/util/math/Matrix4f;)V",
             at = @At(value = "HEAD", args = { "log=true" }))
     public void render(MatrixStack matrices, float tickDelta, long limitTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightmapTextureManager lightmapTextureManager, Matrix4f matrix4f, CallbackInfo cbi) {
-        boolean isStructureVoidVisible = config.struct_void_visibility.equals(AdbAutoConfig.StructureVoidVisibility.VISIBLE);
-        boolean isStructureVoidBoxOutline = config.struct_void_render_mode.equals(AdbAutoConfig.StructureVoidRenderMode.BOX_OUTLINE);
+        boolean isStructureVoidVisible = settings.structVoidVisibility;
+        boolean isStructureVoidBoxOutline = settings.structVoidRenderMode.equals(StructureVoidRenderMode.BOX_OUTLINE);
         boolean isPlayerCreative = this.client.interactionManager.getCurrentGameMode() == GameMode.CREATIVE;
-        ColorRGB voidColor = new ColorRGB(
-                config.struct_void_box_options.struct_void_box_color.color_red,
-                config.struct_void_box_options.struct_void_box_color.color_green,
-                config.struct_void_box_options.struct_void_box_color.color_blue
-        );
+        ColorRGB voidColor = new ColorRGB(64, 255, 230);
 
         VertexConsumerProvider.Immediate immediate = this.bufferBuilders.getEntityVertexConsumers();
         VertexConsumer linesVertexConsumer = immediate.getBuffer(RenderLayer.getLines());
@@ -61,7 +58,7 @@ public class WorldRendererMixin {
         self.checkEmpty(matrices);
         profiler.swap("adb_structure_void");
 
-        int diameter = config.struct_void_render_diameter;
+        int diameter = (int) settings.structVoidRenderDiameter;
         BlockPos playerBlockPos = this.client.player.getBlockPos();
         Iterable<BlockPos> blockPosIterable = BlockPos.iterateOutwards(playerBlockPos, (diameter / 2), (diameter / 2), (diameter / 2));
 
@@ -76,7 +73,7 @@ public class WorldRendererMixin {
                     double alpha = Math.sqrt(Math.pow(Math.sqrt(Math.pow(offsetX, 2) + Math.pow(offsetY, 2)), 2) + Math.pow(offsetZ, 2));
                     float newAlpha = -(((float) alpha) - ((float) diameter / 2));
                     float adjustedAlpha = (newAlpha / ((float) diameter / 2));
-                    boolean fadeBorders = config.struct_void_box_options.fade_borders;
+                    boolean fadeBorders = settings.structVoidFadeBorders;
 
                     if (adjustedAlpha > 0) {
                         this.drawBlockOutline(matrices, linesVertexConsumer, this.shape, cameraVector, currentPos, voidColor, fadeBorders ? Math.max(0, adjustedAlpha) : 1.0F);

@@ -11,5 +11,15 @@
     "text.autoconfig.adb.option.struct_void_box_options.struct_void_box_color": "Structure Void Box Outline color",
     "text.autoconfig.adb.option.struct_void_box_options.struct_void_box_color.color_red": "§cRed",
     "text.autoconfig.adb.option.struct_void_box_options.struct_void_box_color.color_green": "§aGreen",
-    "text.autoconfig.adb.option.struct_void_box_options.struct_void_box_color.color_blue": "§9Blue"
+    "text.autoconfig.adb.option.struct_void_box_options.struct_void_box_color.color_blue": "§9Blue",
+
+    "adb.options.title": "Accessible Developer Blocks Options",
+    "adb.options.back": "Back",
+    "adb.options.applyAndClose": "Apply & Close",
+    "adb.options.render_mode": "Structure Void Render Mode",
+    "adb.options.render_mode.particle": "§aParticles",
+    "adb.options.render_mode.box_outline": "§eBox Outline",
+    "adb.options.generic_value": "%s: %s",
+    "adb.options.structVoidRenderDiam": "Structure Void Render Diameter",
+    "adb.options.structVoidRenderDiam.default": "§aDefault"
 }
