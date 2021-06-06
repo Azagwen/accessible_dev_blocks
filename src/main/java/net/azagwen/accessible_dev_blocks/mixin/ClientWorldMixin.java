@@ -1,7 +1,7 @@
 package net.azagwen.accessible_dev_blocks.mixin;
 
 import net.azagwen.accessible_dev_blocks.AdbClient;
-import net.azagwen.accessible_dev_blocks.AdbParticleTypes;
+import net.azagwen.accessible_dev_blocks.StructureVoidParticleEffect;
 import net.azagwen.accessible_dev_blocks.option.AdbGameOptions;
 import net.azagwen.accessible_dev_blocks.screen.StructureVoidRenderMode;
 import net.fabricmc.api.EnvType;
@@ -57,23 +57,29 @@ public class ClientWorldMixin {
                     double sphere = Math.sqrt(Math.pow(Math.sqrt(Math.pow(offsetX, 2) + Math.pow(offsetY, 2)), 2) + Math.pow(offsetZ, 2));
                     float newSphere = -(((float) sphere) - ((float) diameter / 2));
                     float adjustedSphere = (newSphere / ((float) diameter / 2));
+                    boolean fadeBorders = this.settings.structVoidFadeBorders;
 
                     if (adjustedSphere > 0) {
-                        this.spawParticles(currentPos);
+                        this.spawParticles(currentPos, fadeBorders ? Math.max(0, adjustedSphere) : 1.0F);
                     }
                 }
             });
         }
     }
 
-    public void spawParticles(BlockPos pos) {
+    public void spawParticles(BlockPos pos, float size) {
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
         BlockState blockState = self.getBlockState(pos);
 
         if (blockState.isOf(Blocks.STRUCTURE_VOID)) {
-            self.addParticle(AdbParticleTypes.STRUCTURE_VOID, (double)x + 0.5D, (double)y + 0.5D, (double)z + 0.5D, 0.0D, 0.0D, 0.0D);
+            StructureVoidParticleEffect particle = new StructureVoidParticleEffect(
+                    ((float) this.settings.structVoidColorRed) / 255,
+                    ((float) this.settings.structVoidColorGreen) / 255,
+                    ((float) this.settings.structVoidColorBlue) / 255,
+                    size);
+            self.addParticle(particle, (double)x + 0.5D, (double)y + 0.5D, (double)z + 0.5D, 0.0D, 0.0D, 0.0D);
         }
     }
 }

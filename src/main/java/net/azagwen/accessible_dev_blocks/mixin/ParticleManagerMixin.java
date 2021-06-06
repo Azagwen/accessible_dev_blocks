@@ -18,6 +18,6 @@ public class ParticleManagerMixin {
     @Inject(method = "registerDefaultFactories()V",
             at = @At(value = "TAIL"))
     private void registerDefaultFactories(CallbackInfo cbi) {
-        self.registerFactory(AdbParticleTypes.STRUCTURE_VOID, new StructureVoidParticle.Factory());
+        self.registerFactory(AdbParticleTypes.STRUCTURE_VOID, StructureVoidParticle.Factory::new);
     }
 }

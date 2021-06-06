@@ -48,7 +48,7 @@ public class WorldRendererMixin {
         boolean isStructureVoidVisible = this.settings.structVoidVisibility;
         boolean isStructureVoidBoxOutline = this.settings.structVoidRenderMode.equals(StructureVoidRenderMode.BOX_OUTLINE);
         boolean isPlayerCreative = this.client.interactionManager.getCurrentGameMode() == GameMode.CREATIVE;
-        ColorRGB voidColor = new ColorRGB((int) this.settings.structVoidBoxColorRed, (int) this.settings.structVoidBoxColorGreen, (int) this.settings.structVoidBoxColorBlue);
+        ColorRGB voidColor = new ColorRGB((int) this.settings.structVoidColorRed, (int) this.settings.structVoidColorGreen, (int) this.settings.structVoidColorBlue);
 
         VertexConsumerProvider.Immediate immediate = this.bufferBuilders.getEntityVertexConsumers();
         VertexConsumer linesVertexConsumer = immediate.getBuffer(RenderLayer.getLines());

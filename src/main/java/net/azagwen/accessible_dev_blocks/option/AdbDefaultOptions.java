@@ -6,8 +6,5 @@ public class AdbDefaultOptions {
     public static final StructureVoidRenderMode defaultStructVoidRenderMode = StructureVoidRenderMode.PARTICLE;
     public static final double defaultStructVoidRenderDiameter = 16;
     public static final boolean defaultStructVoidFadeBorders = true;
-    public static final double defaultStructVoidBoxColorRed = 64;
-    public static final double defaultStructVoidBoxColorGreen = 255;
-    public static final double defaultStructVoidBoxColorBlue = 230;
-    public static final String defaultStructVoidBoxColor = "#40ffe6";
+    public static final String defaultStructVoidColor = "#40a7a1";
 }

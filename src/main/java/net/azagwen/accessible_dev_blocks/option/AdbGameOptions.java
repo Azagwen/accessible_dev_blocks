@@ -19,9 +19,10 @@ public class AdbGameOptions {
     public StructureVoidRenderMode structVoidRenderMode;
     public double structVoidRenderDiameter;
     public boolean structVoidFadeBorders;
-    public double structVoidBoxColorRed;
-    public double structVoidBoxColorGreen;
-    public double structVoidBoxColorBlue;
+    public double structVoidColorRed;
+    public double structVoidColorGreen;
+    public double structVoidColorBlue;
+    public String structVoidColor;
     public final File optionsFile;
     public final boolean logDebugInfo = false;
 
@@ -35,22 +36,31 @@ public class AdbGameOptions {
         this.structVoidRenderMode = AdbDefaultOptions.defaultStructVoidRenderMode;
         this.structVoidRenderDiameter = AdbDefaultOptions.defaultStructVoidRenderDiameter;
         this.structVoidFadeBorders = AdbDefaultOptions.defaultStructVoidFadeBorders;
-        this.structVoidBoxColorRed = AdbDefaultOptions.defaultStructVoidBoxColorRed;
-        this.structVoidBoxColorGreen = AdbDefaultOptions.defaultStructVoidBoxColorGreen;
-        this.structVoidBoxColorBlue = AdbDefaultOptions.defaultStructVoidBoxColorBlue;
+        this.structVoidColorRed = Color.decode(AdbDefaultOptions.defaultStructVoidColor).getRed();
+        this.structVoidColorGreen = Color.decode(AdbDefaultOptions.defaultStructVoidColor).getGreen();
+        this.structVoidColorBlue = Color.decode(AdbDefaultOptions.defaultStructVoidColor).getBlue();
+        this.structVoidColor = AdbDefaultOptions.defaultStructVoidColor;
+    }
+
+    private void setColorFromSliders () {
+        this.structVoidColor = AdbUtils.getHexFromColor(
+                new Color(
+                        (int) this.structVoidColorRed,
+                        (int) this.structVoidColorGreen,
+                        (int) this.structVoidColorBlue
+                )
+        );
     }
 
     public void write() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonObject jsonObject = new JsonObject();
 
-        Color color = new Color((int) this.structVoidBoxColorRed, (int) this.structVoidBoxColorGreen, (int) this.structVoidBoxColorBlue);
-
         jsonObject.addProperty("structure_void_visibility", this.structVoidVisibility);
         jsonObject.addProperty("structure_void_render_mode", this.structVoidRenderMode.getId());
         jsonObject.addProperty("structure_void_render_diameter", (int) this.structVoidRenderDiameter);
         jsonObject.addProperty("structure_void_box_outline_fade_borders", this.structVoidFadeBorders);
-        jsonObject.addProperty("structure_void_box_outline_color", AdbUtils.getHexFromColor(color));
+        jsonObject.addProperty("structure_void_box_outline_color", this.structVoidColor);
 
         try {
             if (optionsFile.createNewFile()) {
@@ -96,9 +106,10 @@ public class AdbGameOptions {
                 this.structVoidRenderMode = StructureVoidRenderMode.values()[renderMode];
                 this.structVoidRenderDiameter = renderDiameter;
                 this.structVoidFadeBorders = fadeBorders;
-                this.structVoidBoxColorRed = boxColor.getRed();
-                this.structVoidBoxColorGreen = boxColor.getGreen();
-                this.structVoidBoxColorBlue = boxColor.getBlue();
+                this.structVoidColorRed = boxColor.getRed();
+                this.structVoidColorGreen = boxColor.getGreen();
+                this.structVoidColorBlue = boxColor.getBlue();
+                this.structVoidColor = boxColorStr;
 
             } catch (FileNotFoundException e) {
                 AdbMain.LOGGER.info("An error occurred reading " + optionsFile.getName());

@@ -4,3 +4,5 @@ accessible field net/minecraft/client/render/WorldRenderer world Lnet/minecraft/
 accessible method net/minecraft/client/render/WorldRenderer checkEmpty (Lnet/minecraft/client/util/math/MatrixStack;)V
 accessible method net/minecraft/client/render/WorldRenderer drawBlockOutline (Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;Lnet/minecraft/entity/Entity;DDDLnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;)V
 accessible method net/minecraft/client/render/WorldRenderer drawShapeOutline (Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;Lnet/minecraft/util/shape/VoxelShape;DDDFFFF)V
+accessible method net/minecraft/client/particle/ParticleManager registerFactory (Lnet/minecraft/particle/ParticleType;Lnet/minecraft/client/particle/ParticleManager$SpriteAwareFactory;)V
+accessible class net/minecraft/client/particle/ParticleManager$SpriteAwareFactory

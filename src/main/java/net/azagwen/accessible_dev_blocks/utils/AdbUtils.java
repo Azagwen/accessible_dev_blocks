@@ -47,9 +47,9 @@ public class AdbUtils {
 
     public static Color getBoxColorFromSettings(AdbGameOptions settings) {
         return new Color(
-                (int) settings.structVoidBoxColorRed,
-                (int) settings.structVoidBoxColorGreen,
-                (int) settings.structVoidBoxColorBlue
+                (int) settings.structVoidColorRed,
+                (int) settings.structVoidColorGreen,
+                (int) settings.structVoidColorBlue
         );
     }
 

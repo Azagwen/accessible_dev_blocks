@@ -17,7 +17,7 @@ import java.awt.*;
 
 import static net.azagwen.accessible_dev_blocks.AdbMain.ADB_ID;
 
-public class AdbOptionBoxColorScreen extends AdbScreen {
+public class AdbOptionColorScreen extends AdbScreen {
     private static final Identifier LIGHT_WIDGET_LOCATION = ADB_ID("textures/gui/widgets_light.png");
     private static final Identifier HEX_WARNING_LOCATION = ADB_ID("textures/gui/indicators.png");
     private final Screen parent;
@@ -30,7 +30,7 @@ public class AdbOptionBoxColorScreen extends AdbScreen {
     private boolean isValidHexColor;
     private AdbOptionScreen parentScreen;
 
-    protected AdbOptionBoxColorScreen(Screen parent, AdbGameOptions settings) {
+    protected AdbOptionColorScreen(Screen parent, AdbGameOptions settings) {
         super(new AdbOptionTranslatableText("title.structVoidBoxColor"));
         this.parent = parent;
         this.settings = settings;
@@ -110,12 +110,10 @@ public class AdbOptionBoxColorScreen extends AdbScreen {
             }
             try {
                 this.isValidHexColor = true;
-                Color color = Color.decode(text);
-                this.settings.structVoidBoxColorRed = color.getRed();
-                this.settings.structVoidBoxColorGreen = color.getGreen();
-                this.settings.structVoidBoxColorBlue = color.getBlue();
+                this.settings.structVoidColor = text;
                 this.settings.write();
 
+                Color color = Color.decode(text);
                 this.redColorSliderWidget.setValue(((double) color.getRed()) / 255);
                 this.greenColorSliderWidget.setValue(((double) color.getGreen()) / 255);
                 this.blueColorSliderWidget.setValue(((double) color.getBlue()) / 255);

@@ -37,24 +37,24 @@ public abstract class AdbOption {
     });
     public static final AdbDoubleOption STRUCT_VOID_BOX_COLOR_RED = new AdbDoubleOption("structVoidBoxColorRed", 0.0F, 255.0F, 1.0F, (adbGameOptions) ->
     {
-        return adbGameOptions.structVoidBoxColorRed;
-    }, (adbGameOptions, value) -> adbGameOptions.structVoidBoxColorRed = value, (adbGameOptions, option) ->
+        return adbGameOptions.structVoidColorRed;
+    }, (adbGameOptions, value) -> adbGameOptions.structVoidColorRed = value, (adbGameOptions, option) ->
     {
         double currentValue = option.get(adbGameOptions);
         return option.getGenericLabel(new LiteralText("§c" + (int)currentValue));
     }, new Color(255, 128, 128));
     public static final AdbDoubleOption STRUCT_VOID_BOX_COLOR_GREEN = new AdbDoubleOption("structVoidBoxColorGreen", 0.0F, 255.0F, 1.0F, (adbGameOptions) ->
     {
-        return adbGameOptions.structVoidBoxColorGreen;
-    }, (adbGameOptions, value) -> adbGameOptions.structVoidBoxColorGreen = value, (adbGameOptions, option) ->
+        return adbGameOptions.structVoidColorGreen;
+    }, (adbGameOptions, value) -> adbGameOptions.structVoidColorGreen = value, (adbGameOptions, option) ->
     {
         double currentValue = option.get(adbGameOptions);
         return option.getGenericLabel(new LiteralText("§a" + (int)currentValue));
     }, new Color(128, 255, 128));
     public static final AdbDoubleOption STRUCT_VOID_BOX_COLOR_BLUE = new AdbDoubleOption("structVoidBoxColorBlue", 0.0F, 255.0F, 1.0F, (adbGameOptions) ->
     {
-        return adbGameOptions.structVoidBoxColorBlue;
-    }, (adbGameOptions, value) -> adbGameOptions.structVoidBoxColorBlue = value, (adbGameOptions, option) ->
+        return adbGameOptions.structVoidColorBlue;
+    }, (adbGameOptions, value) -> adbGameOptions.structVoidColorBlue = value, (adbGameOptions, option) ->
     {
         double currentValue = option.get(adbGameOptions);
         return option.getGenericLabel(new LiteralText("§9" + (int)currentValue));

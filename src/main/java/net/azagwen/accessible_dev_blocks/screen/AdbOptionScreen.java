@@ -18,7 +18,6 @@ public class AdbOptionScreen extends AdbScreen {
     private final AdbGameOptions settings;
     private ColoredButtonWidget openColorPickerButton;
     private ButtonWidget structVoidRenderModeButton;
-    private AbstractButtonWidget fadeBordersButton;
     private StructureVoidRenderMode renderMode;
     protected int mainBlockOffsetY = 16;
 
@@ -31,8 +30,6 @@ public class AdbOptionScreen extends AdbScreen {
 
     @Override
     public void tick() {
-        this.openColorPickerButton.active = renderMode.getId() != 0;
-        this.fadeBordersButton.active = renderMode.getId() != 0;
         this.openColorPickerButton.setColor(AdbUtils.getBoxColorFromSettings(this.settings));
     }
 
@@ -46,7 +43,7 @@ public class AdbOptionScreen extends AdbScreen {
 
         //Middle
         this.openColorPickerButton = this.addButton(new ColoredButtonWidget(this.width / 2 + 64, this.getVerticalSpacing(3) - mainBlockOffsetY , 56, 20, new AdbOptionTranslatableText("openColorPicker"), AdbUtils.getBoxColorFromSettings(this.settings), (button) -> {
-            this.client.openScreen(new AdbOptionBoxColorScreen(this, this.settings));
+            this.client.openScreen(new AdbOptionColorScreen(this, this.settings));
         }));
         this.structVoidRenderModeButton = this.addButton(new ButtonWidget(this.width / 2 - 120, this.getVerticalSpacing(3) - mainBlockOffsetY , 180, 20, this.getRenderModeButtonText(this.renderMode), (button) -> {
             this.renderMode = this.renderMode.next();
@@ -55,7 +52,7 @@ public class AdbOptionScreen extends AdbScreen {
             this.structVoidRenderModeButton.setMessage(this.getRenderModeButtonText(this.renderMode));
         }));
         this.addButton(AdbOption.STRUCT_VOID_RENDER_DIAMETER.createButton(this.settings, this.width / 2 - 120, this.getVerticalSpacing(4) - mainBlockOffsetY, 240));
-        this.fadeBordersButton = this.addButton(AdbOption.STRUCT_VOID_FADE_BORDERS.createButton(this.settings, this.width / 2 - 120, this.getVerticalSpacing(5) - mainBlockOffsetY, 240));
+        this.addButton(AdbOption.STRUCT_VOID_FADE_BORDERS.createButton(this.settings, this.width / 2 - 120, this.getVerticalSpacing(5) - mainBlockOffsetY, 240));
 
         //Bottom
         this.addButton(new ButtonWidget(this.width / 2 - 155, this.getVerticalSpacing(7), 150, 20, new AdbOptionTranslatableText("reset"), (button) -> {

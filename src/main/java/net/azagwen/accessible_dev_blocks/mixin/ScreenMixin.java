@@ -1,6 +1,6 @@
 package net.azagwen.accessible_dev_blocks.mixin;
 
-import net.azagwen.accessible_dev_blocks.screen.AdbOptionBoxColorScreen;
+import net.azagwen.accessible_dev_blocks.screen.AdbOptionColorScreen;
 import net.azagwen.accessible_dev_blocks.screen.AdbOptionScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
@@ -26,7 +26,7 @@ public class ScreenMixin {
                     )
     )
     public void redirectBindTexture(TextureManager manager, Identifier id) {
-        if (MinecraftClient.getInstance().currentScreen instanceof AdbOptionScreen || MinecraftClient.getInstance().currentScreen instanceof AdbOptionBoxColorScreen) {
+        if (MinecraftClient.getInstance().currentScreen instanceof AdbOptionScreen || MinecraftClient.getInstance().currentScreen instanceof AdbOptionColorScreen) {
             manager.bindTexture(ADB_ID("textures/gui/config_background.png"));
         } else {
             manager.bindTexture(DrawableHelper.OPTIONS_BACKGROUND_TEXTURE);

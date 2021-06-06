@@ -4,39 +4,44 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.ParticleFactory;
-import net.minecraft.client.particle.ParticleTextureSheet;
-import net.minecraft.client.particle.SpriteBillboardParticle;
+import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.ItemConvertible;
+import net.minecraft.item.Items;
 import net.minecraft.particle.DefaultParticleType;
+import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public class StructureVoidParticle extends SpriteBillboardParticle {
-    private StructureVoidParticle(ClientWorld world, double x, double y, double z, ItemConvertible itemConvertible) {
+
+    private StructureVoidParticle(ClientWorld world, double x, double y, double z, StructureVoidParticleEffect parameters, SpriteProvider spriteProvider) {
         super(world, x, y, z);
-        this.setSprite(MinecraftClient.getInstance().getItemRenderer().getModels().getSprite(itemConvertible));
+        this.setSprite(spriteProvider);
+        this.colorRed = parameters.getRed();
+        this.colorGreen = parameters.getGreen();
+        this.colorBlue = parameters.getBlue();
+        this.scale = parameters.getScale() / 2;
         this.gravityStrength = 0.0F;
         this.maxAge = 1;
         this.collidesWithWorld = false;
     }
 
+    @Override
     public ParticleTextureSheet getType() {
-        return ParticleTextureSheet.TERRAIN_SHEET;
-    }
-
-    public float getSize(float tickDelta) {
-        return 0.5F;
+        return ParticleTextureSheet.PARTICLE_SHEET_OPAQUE;
     }
 
     @Environment(EnvType.CLIENT)
-    public static class Factory implements ParticleFactory<DefaultParticleType> {
-        public Factory() {
+    public static class Factory implements ParticleFactory<StructureVoidParticleEffect> {
+        private final SpriteProvider spriteProvider;
+
+        public Factory(SpriteProvider spriteProvider) {
+            this.spriteProvider = spriteProvider;
         }
 
-        public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-            return new StructureVoidParticle(clientWorld, d, e, f, Blocks.STRUCTURE_VOID.asItem());
+        @Override
+        public @Nullable Particle createParticle(StructureVoidParticleEffect parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
+            return new StructureVoidParticle(world, x, y, z, parameters, this.spriteProvider);
         }
     }
 }
