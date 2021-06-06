@@ -20,7 +20,7 @@ import static org.lwjgl.glfw.GLFW.GLFW_KEY_F4;
 public class AdbClient implements ClientModInitializer {
     public static final Logger LOGGER  = LogManager.getLogger();
     public static KeyBinding structureVoidCycleKey;
-    public final String keyBindingCategory ="key.categories." + ADB_NAMESPACE;
+    public final String keyBindingCategory = "key.categories." + ADB_NAMESPACE;
     public static AdbGameOptions settings;
 
     @Override
