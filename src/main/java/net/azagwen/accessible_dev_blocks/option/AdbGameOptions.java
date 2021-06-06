@@ -56,12 +56,14 @@ public class AdbGameOptions {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonObject jsonObject = new JsonObject();
 
+        //Populate the JSON
         jsonObject.addProperty("structure_void_visibility", this.structVoidVisibility);
         jsonObject.addProperty("structure_void_render_mode", this.structVoidRenderMode.getId());
         jsonObject.addProperty("structure_void_render_diameter", (int) this.structVoidRenderDiameter);
         jsonObject.addProperty("structure_void_box_outline_fade_borders", this.structVoidFadeBorders);
         jsonObject.addProperty("structure_void_box_outline_color", this.structVoidColor);
 
+        //Create the File
         try {
             if (optionsFile.createNewFile()) {
                 if (logDebugInfo)
@@ -75,6 +77,7 @@ public class AdbGameOptions {
             e.printStackTrace();
         }
 
+        //Write in the File
         try {
             FileWriter writer = new FileWriter(optionsFile);
             writer.write(gson.toJson(jsonObject));
@@ -95,6 +98,7 @@ public class AdbGameOptions {
                 JsonParser parser = new JsonParser();
                 JsonObject json = parser.parse(reader).getAsJsonObject();
 
+                //Search and Read values from the JSON, and assign them to temp fields.
                 boolean isVisible = json.has("structure_void_visibility") && json.get("structure_void_visibility").getAsBoolean();
                 int renderMode = json.has("structure_void_render_mode") ? json.get("structure_void_render_mode").getAsInt() : 0;
                 double renderDiameter = json.has("structure_void_render_diameter") ? json.get("structure_void_render_diameter").getAsDouble() : 8.0D;
@@ -102,6 +106,7 @@ public class AdbGameOptions {
                 String boxColorStr = json.has("structure_void_box_outline_color") ? json.get("structure_void_box_outline_color").getAsString() : "#ffffff";
                 Color boxColor = Color.decode(boxColorStr);
 
+                //Write values from the JSON to the fields in this class.
                 this.structVoidVisibility = isVisible;
                 this.structVoidRenderMode = StructureVoidRenderMode.values()[renderMode];
                 this.structVoidRenderDiameter = renderDiameter;

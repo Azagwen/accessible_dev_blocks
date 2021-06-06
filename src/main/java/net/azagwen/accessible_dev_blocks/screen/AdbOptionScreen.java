@@ -7,7 +7,6 @@ import net.azagwen.accessible_dev_blocks.utils.AdbUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
@@ -30,7 +29,7 @@ public class AdbOptionScreen extends AdbScreen {
 
     @Override
     public void tick() {
-        this.openColorPickerButton.setColor(AdbUtils.getBoxColorFromSettings(this.settings));
+        this.openColorPickerButton.setColor(AdbUtils.getColorFromSettings(this.settings));
     }
 
     protected int getVerticalSpacing(int row) {
@@ -42,7 +41,7 @@ public class AdbOptionScreen extends AdbScreen {
         this.renderMode = this.settings.structVoidRenderMode;
 
         //Middle
-        this.openColorPickerButton = this.addButton(new ColoredButtonWidget(this.width / 2 + 64, this.getVerticalSpacing(3) - mainBlockOffsetY , 56, 20, new AdbOptionTranslatableText("openColorPicker"), AdbUtils.getBoxColorFromSettings(this.settings), (button) -> {
+        this.openColorPickerButton = this.addButton(new ColoredButtonWidget(this.width / 2 + 64, this.getVerticalSpacing(3) - mainBlockOffsetY , 56, 20, new AdbOptionTranslatableText("openColorPicker"), AdbUtils.getColorFromSettings(this.settings), (button) -> {
             this.client.openScreen(new AdbOptionColorScreen(this, this.settings));
         }));
         this.structVoidRenderModeButton = this.addButton(new ButtonWidget(this.width / 2 - 120, this.getVerticalSpacing(3) - mainBlockOffsetY , 180, 20, this.getRenderModeButtonText(this.renderMode), (button) -> {

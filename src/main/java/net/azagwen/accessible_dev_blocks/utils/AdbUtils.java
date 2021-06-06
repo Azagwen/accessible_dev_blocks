@@ -45,12 +45,16 @@ public class AdbUtils {
 
     }
 
-    public static Color getBoxColorFromSettings(AdbGameOptions settings) {
+    public static Color getColorFromSettings(AdbGameOptions settings) {
         return new Color(
                 (int) settings.structVoidColorRed,
                 (int) settings.structVoidColorGreen,
                 (int) settings.structVoidColorBlue
         );
+    }
+
+    public static Color getHexColorFromSettings(AdbGameOptions settings) {
+        return Color.decode(settings.structVoidColor);
     }
 
     public int getVerticalSpacing(int height, int row) {

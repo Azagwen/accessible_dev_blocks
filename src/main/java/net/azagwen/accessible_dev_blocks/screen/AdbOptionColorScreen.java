@@ -31,7 +31,7 @@ public class AdbOptionColorScreen extends AdbScreen {
     private AdbOptionScreen parentScreen;
 
     protected AdbOptionColorScreen(Screen parent, AdbGameOptions settings) {
-        super(new AdbOptionTranslatableText("title.structVoidBoxColor"));
+        super(new AdbOptionTranslatableText("title.structVoidColor"));
         this.parent = parent;
         this.settings = settings;
         if (this.parent instanceof AdbOptionScreen) {
@@ -45,7 +45,7 @@ public class AdbOptionColorScreen extends AdbScreen {
     @Override
     public void tick() {
         this.hexCodeField.tick();
-        Color color = AdbUtils.getBoxColorFromSettings(this.settings);
+        Color color = AdbUtils.getColorFromSettings(this.settings);
         this.colorDisplayWidget.setColor(color);
         this.redColorSliderWidget.setColor(color);
         this.greenColorSliderWidget.setColor(color);
@@ -58,7 +58,7 @@ public class AdbOptionColorScreen extends AdbScreen {
     @Override
     protected void init() {
         this.client.keyboard.setRepeatEvents(true);
-        this.colorDisplayWidget = this.addButton(new AdbColorDisplayWidget(this.width / 2 + 80, this.parentScreen.getVerticalSpacing(2), 20, 68, AdbUtils.getBoxColorFromSettings(settings)));
+        this.colorDisplayWidget = this.addButton(new AdbColorDisplayWidget(this.width / 2 + 80, this.parentScreen.getVerticalSpacing(2), 20, 68, AdbUtils.getColorFromSettings(settings)));
         this.redColorSliderWidget = (AdbDoubleOptionSliderWidget) this.addButton(AdbOption.STRUCT_VOID_BOX_COLOR_RED.createButton(this.settings, this.width / 2 - 100, this.parentScreen.getVerticalSpacing(2), 170));
         this.greenColorSliderWidget = (AdbDoubleOptionSliderWidget) this.addButton(AdbOption.STRUCT_VOID_BOX_COLOR_GREEN.createButton(this.settings, this.width / 2 - 100, this.parentScreen.getVerticalSpacing(3), 170));
         this.blueColorSliderWidget = (AdbDoubleOptionSliderWidget) this.addButton(AdbOption.STRUCT_VOID_BOX_COLOR_BLUE.createButton(this.settings, this.width / 2 - 100, this.parentScreen.getVerticalSpacing(4), 170));
@@ -68,7 +68,7 @@ public class AdbOptionColorScreen extends AdbScreen {
         this.hexCodeField = new TextFieldWidget(this.textRenderer, this.width / 2 - 99, this.parentScreen.getVerticalSpacing(5) + 1, 198, 18, new AdbOptionTranslatableText("textInput.hexCode"));
         this.hexCodeField.setMaxLength(7);
         this.hexCodeField.setChangedListener(this::onHexCodeChanged);
-        this.hexCodeField.setText(AdbUtils.getHexFromColor(AdbUtils.getBoxColorFromSettings(this.settings)));
+        this.hexCodeField.setText(AdbUtils.getHexFromColor(AdbUtils.getColorFromSettings(this.settings)));
         this.children.add(this.hexCodeField);
 
         //Bottom
@@ -110,10 +110,13 @@ public class AdbOptionColorScreen extends AdbScreen {
             }
             try {
                 this.isValidHexColor = true;
+                Color color = Color.decode(text);
+                this.settings.structVoidColorRed = color.getRed();
+                this.settings.structVoidColorGreen = color.getGreen();
+                this.settings.structVoidColorBlue = color.getBlue();
                 this.settings.structVoidColor = text;
                 this.settings.write();
 
-                Color color = Color.decode(text);
                 this.redColorSliderWidget.setValue(((double) color.getRed()) / 255);
                 this.greenColorSliderWidget.setValue(((double) color.getGreen()) / 255);
                 this.blueColorSliderWidget.setValue(((double) color.getBlue()) / 255);

@@ -10,12 +10,15 @@ import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.options.KeyBinding;
 import net.minecraft.client.render.RenderLayer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import static net.azagwen.accessible_dev_blocks.AdbMain.ADB_NAMESPACE;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_F4;
 
 @Environment(EnvType.CLIENT)
 public class AdbClient implements ClientModInitializer {
+    public static final Logger LOGGER  = LogManager.getLogger();
     public static KeyBinding structureVoidCycleKey;
     public final String keyBindingCategory ="key.categories." + ADB_NAMESPACE;
     public static AdbGameOptions settings;
@@ -28,5 +31,11 @@ public class AdbClient implements ClientModInitializer {
 
         MinecraftClient client = MinecraftClient.getInstance();
         settings = new AdbGameOptions(client, client.runDirectory);
+
+        if (!settings.optionsFile.exists()) {
+            LOGGER.info("No Options file found, creating one.");
+            settings.write();
+        }
+        LOGGER.info("Accessible Developer blocks client initialised !");
     }
 }
