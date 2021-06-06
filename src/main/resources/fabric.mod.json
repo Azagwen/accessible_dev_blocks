@@ -4,7 +4,7 @@
   "version": "${version}",
   "accessWidener" : "adb.accesswidener",
   "name": "Accessible Dev Blocks",
-  "description": "A mod that tries to make it a bit less of a pain to use Minecraft's vanilla developer features. \n (Thanks to Someone_in_particular for helping me with Trigonometry stuff)",
+  "description": "A mod that tries to make it a bit less of a pain to use Minecraft's vanilla developer features.\n§o(Thanks to Someone_in_particular for helping me with Trigonometry stuff)",
   "authors": [
     "Azagwen"
   ],
