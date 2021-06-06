@@ -8,10 +8,12 @@ import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.omg.CORBA.portable.IDLEntity;
 
 public class AdbMain implements ModInitializer {
 	public static final Logger LOGGER  = LogManager.getLogger();
 	public static final String ADB_NAMESPACE = "adb";
+	public static final Identifier CONFIG_BG_LOCATION = ADB_ID("textures/gui/config_background.png");
 
 	public static Identifier ADB_ID(String path) {
 		return new Identifier(ADB_NAMESPACE, path);

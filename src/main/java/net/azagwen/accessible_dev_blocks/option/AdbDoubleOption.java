@@ -1,7 +1,5 @@
-package net.azagwen.accessible_dev_blocks.screen;
+package net.azagwen.accessible_dev_blocks.option;
 
-import net.azagwen.accessible_dev_blocks.option.AdbGameOptions;
-import net.azagwen.accessible_dev_blocks.option.AdbOption;
 import net.azagwen.accessible_dev_blocks.screen.widget.AdbDoubleOptionSliderWidget;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -9,6 +7,7 @@ import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
 
+import java.awt.*;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -21,8 +20,9 @@ public class AdbDoubleOption extends AdbOption {
     private final Function<AdbGameOptions, Double> getter;
     private final BiConsumer<AdbGameOptions, Double> setter;
     private final BiFunction<AdbGameOptions, AdbDoubleOption, Text> displayStringGetter;
+    private final Color color;
 
-    public AdbDoubleOption(String key, double min, double max, float step, Function<AdbGameOptions, Double> getter, BiConsumer<AdbGameOptions, Double> setter, BiFunction<AdbGameOptions, AdbDoubleOption, Text> displayStringGetter) {
+    public AdbDoubleOption(String key, double min, double max, float step, Function<AdbGameOptions, Double> getter, BiConsumer<AdbGameOptions, Double> setter, BiFunction<AdbGameOptions, AdbDoubleOption, Text> displayStringGetter, Color color) {
         super(key);
         this.min = min;
         this.max = max;
@@ -30,10 +30,11 @@ public class AdbDoubleOption extends AdbOption {
         this.getter = getter;
         this.setter = setter;
         this.displayStringGetter = displayStringGetter;
+        this.color = color;
     }
 
     public AbstractButtonWidget createButton(AdbGameOptions options, int x, int y, int width) {
-        return new AdbDoubleOptionSliderWidget(options, x, y, width, 20, this);
+        return new AdbDoubleOptionSliderWidget(options, x, y, width, 20, this, this.color);
     }
 
     public double getRatio(double value) {

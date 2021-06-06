@@ -9,6 +9,7 @@
     "adb.options.title.structVoidBoxColor": "Box Outline Color",
     "adb.options.reset": "Reset to default",
     "adb.options.applyAndClose": "Close",
+    "adb.options.openColorPicker": "Set Color",
     "adb.options.renderMode": "Render Mode",
     "adb.options.renderMode.particle": "§aParticles",
     "adb.options.renderMode.box_outline": "§eBox Outline",

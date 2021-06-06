@@ -4,6 +4,7 @@
     "package": "net.azagwen.accessible_dev_blocks.mixin",
     "compatibilityLevel": "JAVA_8",
     "mixins": [
+        "ScreenMixin",
         "StructureBlockBlockEntityRendererMixin",
         "StructureVoidBlockMixin"
     ],

@@ -1,14 +1,12 @@
 package net.azagwen.accessible_dev_blocks.option;
 
-import net.azagwen.accessible_dev_blocks.option.AdbGameOptions;
-import net.azagwen.accessible_dev_blocks.screen.AdbBooleanOption;
-import net.azagwen.accessible_dev_blocks.screen.AdbDoubleOption;
 import net.azagwen.accessible_dev_blocks.screen.AdbOptionTranslatableText;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.text.*;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +29,7 @@ public abstract class AdbOption {
         } else {
             return option.getGenericLabel(new LiteralText("§a" + (int) currentValue));
         }
-    });
+    }, new Color(255, 255, 255));
     public static final AdbBooleanOption STRUCT_VOID_FADE_BORDERS = new AdbBooleanOption("structVoidFadeBorders", (gameOptions) -> {
         return gameOptions.structVoidFadeBorders;
     }, (gameOptions, fadeBorders) -> {
@@ -44,7 +42,7 @@ public abstract class AdbOption {
     {
         double currentValue = option.get(adbGameOptions);
         return option.getGenericLabel(new LiteralText("§c" + (int)currentValue));
-    });
+    }, new Color(255, 128, 128));
     public static final AdbDoubleOption STRUCT_VOID_BOX_COLOR_GREEN = new AdbDoubleOption("structVoidBoxColorGreen", 0.0F, 255.0F, 1.0F, (adbGameOptions) ->
     {
         return adbGameOptions.structVoidBoxColorGreen;
@@ -52,7 +50,7 @@ public abstract class AdbOption {
     {
         double currentValue = option.get(adbGameOptions);
         return option.getGenericLabel(new LiteralText("§a" + (int)currentValue));
-    });
+    }, new Color(128, 255, 128));
     public static final AdbDoubleOption STRUCT_VOID_BOX_COLOR_BLUE = new AdbDoubleOption("structVoidBoxColorBlue", 0.0F, 255.0F, 1.0F, (adbGameOptions) ->
     {
         return adbGameOptions.structVoidBoxColorBlue;
@@ -60,7 +58,7 @@ public abstract class AdbOption {
     {
         double currentValue = option.get(adbGameOptions);
         return option.getGenericLabel(new LiteralText("§9" + (int)currentValue));
-    });
+    }, new Color(128, 128, 255));
 
     private final Text key;
     private Optional<List<OrderedText>> tooltip = Optional.empty();

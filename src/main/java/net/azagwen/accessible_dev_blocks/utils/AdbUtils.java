@@ -1,5 +1,6 @@
 package net.azagwen.accessible_dev_blocks.utils;
 
+import net.azagwen.accessible_dev_blocks.option.AdbGameOptions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.VertexConsumer;
@@ -7,6 +8,8 @@ import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
+
+import java.awt.*;
 
 public class AdbUtils {
     public static Box makeCenteredInflatableBox(BlockPos blockPos, int boxSize, float inflateFac) {
@@ -35,5 +38,22 @@ public class AdbUtils {
     @Environment(EnvType.CLIENT)
     public static void drawBox(MatrixStack matrices, VertexConsumer vertexConsumer, Box box, ColorRGB color, float alpha) {
         WorldRenderer.drawBox(matrices, vertexConsumer, box.minX, box.minY, box.minZ, box.maxX, box.maxY, box.maxZ, color.redNormalized, color.greenNormalized, color.blueNormalized, alpha, color.redNormalized, color.greenNormalized, color.blueNormalized);
+    }
+
+    public static String getHexFromColor(Color color) {
+        return "#"+Integer.toHexString(color.getRGB()).substring(2);
+
+    }
+
+    public static Color getBoxColorFromSettings(AdbGameOptions settings) {
+        return new Color(
+                (int) settings.structVoidBoxColorRed,
+                (int) settings.structVoidBoxColorGreen,
+                (int) settings.structVoidBoxColorBlue
+        );
+    }
+
+    public int getVerticalSpacing(int height, int row) {
+        return height / 6 + (24 * row) -6;
     }
 }

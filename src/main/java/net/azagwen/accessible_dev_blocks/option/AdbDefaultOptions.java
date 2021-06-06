@@ -9,4 +9,5 @@ public class AdbDefaultOptions {
     public static final double defaultStructVoidBoxColorRed = 64;
     public static final double defaultStructVoidBoxColorGreen = 255;
     public static final double defaultStructVoidBoxColorBlue = 230;
+    public static final String defaultStructVoidBoxColor = "#40ffe6";
 }
