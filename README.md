@@ -3,6 +3,8 @@
 ## About
 A small fabric mod that makes vanilla developer blocks easier to access, with a dedicated creative tab and a structure void utility.
 
+Curseforge : https://www.curseforge.com/minecraft/mc-mods/accessible-developer-blocks
+
 ## Features
 ### - Structure void visibility switch
 By default set to F4 it allows you to toggle structure void between visible and invisible, when visible they will act like Barrier blocks and have their hitboxes the size of a full block, when hidden their hitbox is removed and their particles stop showing.
