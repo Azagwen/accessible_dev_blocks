@@ -30,6 +30,7 @@ public class AdbGameOptions {
         this.reset();
         this.optionsFile = new File(optionsFile, "config/adb_options.json");
         this.client = client;
+        this.read();
     }
 
     public void reset() {
@@ -40,16 +41,6 @@ public class AdbGameOptions {
         this.structVoidColorGreen = Color.decode(AdbDefaultOptions.defaultStructVoidColor).getGreen();
         this.structVoidColorBlue = Color.decode(AdbDefaultOptions.defaultStructVoidColor).getBlue();
         this.structVoidColor = AdbDefaultOptions.defaultStructVoidColor;
-    }
-
-    private void setColorFromSliders () {
-        this.structVoidColor = AdbUtils.getHexFromColor(
-                new Color(
-                        (int) this.structVoidColorRed,
-                        (int) this.structVoidColorGreen,
-                        (int) this.structVoidColorBlue
-                )
-        );
     }
 
     public void write() {
@@ -93,7 +84,6 @@ public class AdbGameOptions {
     public void read() {
         if (optionsFile.exists()) {
             try {
-                Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 JsonReader reader = new JsonReader(new FileReader(optionsFile));
                 JsonParser parser = new JsonParser();
                 JsonObject json = parser.parse(reader).getAsJsonObject();

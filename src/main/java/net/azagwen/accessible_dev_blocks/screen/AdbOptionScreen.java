@@ -37,7 +37,6 @@ public class AdbOptionScreen extends AdbScreen {
     }
 
     protected void init() {
-        this.settings.read();
         this.renderMode = this.settings.structVoidRenderMode;
 
         //Middle
